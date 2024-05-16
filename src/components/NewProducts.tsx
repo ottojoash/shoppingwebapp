@@ -57,7 +57,7 @@ const NewProducts = () => {
   return (
     <div>
       <div className="container pt-16">
-        <h2 className="font-medium text-2xl pb-4">New Products</h2>
+        <h2 className="font-medium text-2xl pb-4">Best Sellers</h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10">
           {productsData.map((item, index) => (
