@@ -47,7 +47,7 @@ const CandleProductCard: React.FC<CandleProductCardProps> = ({ img, title, desc 
 // Main component to display all candle products
 const CandleProducts: React.FC = () => {
   return (
-    <div className="flex justify-center items-center p-10">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-3 gap-4">
         {candleProducts.map((product, index) => (
           <CandleProductCard key={index} {...product} />
