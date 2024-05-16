@@ -1,22 +1,23 @@
 import Image from "next/image";
 import React from "react";
-
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-interface propsType {
+interface PropsType {
   img: string;
   title: string;
   desc: string;
   rating: number;
   price: string;
+  onAddToCart: () => void; // Add this line
 }
 
-const ProductCard: React.FC<propsType> = ({
+const ProductCard: React.FC<PropsType> = ({
   img,
   title,
   desc,
   rating,
   price,
+  onAddToCart, // Destructure this prop
 }) => {
   const generateRating = (rating: number) => {
     switch (rating) {
@@ -70,7 +71,6 @@ const ProductCard: React.FC<propsType> = ({
             <AiFillStar />
           </div>
         );
-
       default:
         return null;
     }
@@ -92,13 +92,18 @@ const ProductCard: React.FC<propsType> = ({
         <h2 className="text-accent font-medium uppercase">{title}</h2>
         <p className="text-gray-500 max-w-[150px]">{desc}</p>
         <div>{generateRating(rating)}</div>
-
         <div className="font-bold flex gap-4">
           ${price}
           <del className="text-gray-500 font-normal">
             ${parseInt(price) + 50}.00
           </del>
         </div>
+        <button
+          onClick={onAddToCart}
+          className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

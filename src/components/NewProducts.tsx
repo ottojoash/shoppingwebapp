@@ -1,7 +1,16 @@
+'use client';
 import React from "react";
 import ProductCard from "./ProductCard";
 
-const productsData = [
+interface Product {
+  img: string;
+  title: string;
+  desc: string;
+  rating: number;
+  price: string;
+}
+
+const productsData: Product[] = [
   {
     img: "/jacket-1.jpg",
     title: "Jacket",
@@ -53,24 +62,26 @@ const productsData = [
   },
 ];
 
-const NewProducts = () => {
-  return (
-    <div>
-      <div className="container pt-16">
-        <h2 className="font-medium text-2xl pb-4">Best Sellers</h2>
+const NewProducts: React.FC = () => {
+  const handleAddToCart = (item: Product) => {
+    console.log("Added to cart:", item.title); // For now, just log the item title. Replace this with your cart handling logic.
+  };
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10">
-          {productsData.map((item, index) => (
-            <ProductCard
-              key={index}
-              img={item.img}
-              title={item.title}
-              desc={item.desc}
-              rating={item.rating}
-              price={item.price}
-            />
-          ))}
-        </div>
+  return (
+    <div className="container pt-16">
+      <h2 className="font-medium text-2xl pb-4">Best Sellers</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10">
+        {productsData.map((item, index) => (
+          <ProductCard
+            key={index}
+            img={item.img}
+            title={item.title}
+            desc={item.desc}
+            rating={item.rating}
+            price={item.price}
+            onAddToCart={() => handleAddToCart(item)}
+          />
+        ))}
       </div>
     </div>
   );
