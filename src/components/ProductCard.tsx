@@ -1,4 +1,7 @@
+'use client';
+
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
@@ -78,16 +81,17 @@ const ProductCard: React.FC<PropsType> = ({
 
   return (
     <div className="px-4 border border-gray-200 rounded-xl max-w-[400px]">
-      <div>
-        <Image
-          className="w-full h-auto"
-          src={img}
-          width={200}
-          height={300}
-          alt={title}
-        />
-      </div>
-
+      <Link href={`/products/${title}`}>
+        <div>
+          <Image
+            className="w-full h-auto"
+            src={img}
+            width={200}
+            height={300}
+            alt={title}
+          />
+        </div>
+      </Link>
       <div className="space-y-2 py-2">
         <h2 className="text-accent font-medium uppercase">{title}</h2>
         <p className="text-gray-500 max-w-[150px]">{desc}</p>

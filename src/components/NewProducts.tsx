@@ -1,4 +1,5 @@
 'use client';
+
 import React from "react";
 import ProductCard from "./ProductCard";
 
@@ -64,7 +65,7 @@ const productsData: Product[] = [
 
 const NewProducts: React.FC = () => {
   const handleAddToCart = (item: Product) => {
-    console.log("Added to cart:", item.title); // For now, just log the item title. Replace this with your cart handling logic.
+    console.log("Added to cart:", item.title); // Replace this with your cart handling logic.
   };
 
   return (
@@ -79,7 +80,7 @@ const NewProducts: React.FC = () => {
             desc={item.desc}
             rating={item.rating}
             price={item.price}
-            onAddToCart={() => handleAddToCart(item)}
+            onAddToCart={() => handleAddToCart(item)} // Pass the function here
           />
         ))}
       </div>
