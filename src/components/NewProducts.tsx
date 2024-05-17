@@ -71,17 +71,18 @@ const NewProducts: React.FC = () => {
   return (
     <div className="container pt-16">
       <h2 className="font-medium text-2xl pb-4">Best Sellers</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10">
+      <div className="flex overflow-x-scroll no-scrollbar space-x-4 py-4">
         {productsData.map((item, index) => (
-          <ProductCard
-            key={index}
-            img={item.img}
-            title={item.title}
-            desc={item.desc}
-            rating={item.rating}
-            price={item.price}
-            onAddToCart={() => handleAddToCart(item)} // Pass the function here
-          />
+          <div key={index} className="shrink-0">
+            <ProductCard
+              img={item.img}
+              title={item.title}
+              desc={item.desc}
+              rating={item.rating}
+              price={item.price}
+              onAddToCart={() => handleAddToCart(item)} // Pass the function here
+            />
+          </div>
         ))}
       </div>
     </div>
