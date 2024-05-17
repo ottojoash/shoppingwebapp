@@ -26,7 +26,7 @@ interface CandleProductCardProps {
 // Single candle product card component
 const CandleProductCard: React.FC<CandleProductCardProps> = ({ img }) => {
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-4 shadow-lg border rounded-lg">
+    <div className="flex-none w-1/3 p-4 bg-white shadow-lg border rounded-lg" style={{ height: '300px' }}>
       <img src={img} alt="Candle" className="h-full w-full object-cover"/>
     </div>
   );
@@ -35,8 +35,8 @@ const CandleProductCard: React.FC<CandleProductCardProps> = ({ img }) => {
 // Main component to display all candle products
 const CandleProducts: React.FC = () => {
   return (
-    <div className="flex justify-center items-center w-full px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+    <div className="flex justify-center w-full overflow-x-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex space-x-4 min-w-max"> {/* Use flex and min-w-max to enable horizontal scrolling */}
         {candleProducts.map((product, index) => (
           <CandleProductCard key={index} img={product.img} />
         ))}
