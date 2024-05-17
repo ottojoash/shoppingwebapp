@@ -35,8 +35,8 @@ const CandleProductCard: React.FC<CandleProductCardProps> = ({ img }) => {
 // Main component to display all candle products
 const CandleProducts: React.FC = () => {
   return (
-    <div className="flex justify-center w-full"> {/* Center alignment for the container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl"> {/* Added max width to match the banner */}
+    <div className="flex justify-center items-center w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
         {candleProducts.map((product, index) => (
           <CandleProductCard key={index} img={product.img} />
         ))}
