@@ -80,30 +80,30 @@ const ProductCard: React.FC<PropsType> = ({
   };
 
   return (
-    <div className="p-2 border border-gray-200 rounded-xl w-[80px] h-[100px] sm:w-[150px] sm:h-[250px]">
+    <div className="p-1 border border-gray-200 rounded-xl w-[100px] h-[150px] sm:w-[150px] sm:h-[200px]">
       <Link href={`/products/${title}`}>
-        <div className="relative w-full h-[40px] sm:h-[150px]">
+        <div className="relative w-full h-[50px] sm:h-[100px]">
           <Image
-            className="object-cover"
+            className="object-cover rounded-t-xl"
             src={img}
             layout="fill"
             alt={title}
           />
         </div>
       </Link>
-      <div className="space-y-1 py-1 sm:py-2">
-        <h2 className="text-[10px] sm:text-base text-accent font-medium uppercase">{title}</h2>
-        <p className="text-[8px] sm:text-sm text-gray-500 max-w-[80px] sm:max-w-[150px]">{desc}</p>
+      <div className="space-y-1 py-1 sm:py-2 text-center">
+        <h2 className="text-[10px] sm:text-sm text-accent font-medium uppercase">{title}</h2>
+        <p className="text-[8px] sm:text-xs text-gray-500">{desc}</p>
         <div>{generateRating(rating)}</div>
-        <div className="text-[8px] sm:text-base font-bold flex gap-1 sm:gap-4">
+        <div className="text-[8px] sm:text-sm font-bold flex justify-center items-center gap-1 sm:gap-2">
           ${price}
-          <del className="text-gray-500 font-normal">
+          <del className="text-gray-500 font-normal text-[6px] sm:text-xs">
             ${parseInt(price) + 50}.00
           </del>
         </div>
         <button
           onClick={onAddToCart}
-          className="mt-1 sm:mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded text-[8px] sm:text-base"
+          className="mt-1 sm:mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 sm:py-1 sm:px-2 rounded text-[8px] sm:text-sm"
         >
           Add to Cart
         </button>
