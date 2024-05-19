@@ -80,7 +80,7 @@ const ProductCard: React.FC<PropsType> = ({
   };
 
   return (
-    <div className="p-2 border border-gray-200 rounded-xl w-[80px] h-[80px] sm:w-[150px] sm:h-[250px]">
+    <div className="p-2 border border-gray-200 rounded-xl w-[80px] h-[100px] sm:w-[150px] sm:h-[250px]">
       <Link href={`/products/${title}`}>
         <div className="relative w-full h-[40px] sm:h-[150px]">
           <Image
