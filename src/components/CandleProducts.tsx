@@ -38,7 +38,7 @@ const CandleProductCard: React.FC<CandleProductCardProps> = ({ img }) => {
 // Main component to display all candle products
 const CandleProducts: React.FC = () => {
   return (
-    <div className="flex justify-center w-full overflow-x-auto px-2 sm:px-4 lg:px-8">
+    <div className="flex justify-center w-full overflow-x-auto px-2 sm:px-4 lg:px-8 mt-9 mb-4"> {/* Adjusted top margin for space between banner */}
       <div className="flex space-x-2 sm:space-x-4 min-w-max"> {/* Use flex and min-w-max to enable horizontal scrolling */}
         {candleProducts.map((product, index) => (
           <CandleProductCard key={index} img={product.img} />
