@@ -1,14 +1,13 @@
 import React from "react";
-import { BiUser } from "react-icons/bi";
-import { FiHeart } from "react-icons/fi";
-import { HiOutlineShoppingBag } from "react-icons/hi";
 
 const HeaderMain = () => {
   return (
     <div className="border-b border-gray-200 py-6">
       <div className="container flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-        <div className="font-bold text-4xl pb-4 sm:pb-0 text-blackish">
-          The Essential Man
+        
+        {/* Image replacing text */}
+        <div className="pb-4 sm:pb-0">
+          <img src="/path/to/your/logo.png" alt="The Essential Man" className="h-10" /> {/* Adjust path and height as needed */}
         </div>
 
         <div className="flex justify-center gap-8 text-gray-600 text-lg mb-4 sm:mb-0">
