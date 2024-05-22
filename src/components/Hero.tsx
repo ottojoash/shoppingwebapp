@@ -1,57 +1,14 @@
-"use client";
-
-import React from "react";
-import Slider from "react-slick";
-import Slide from "./Slide";
+import React from 'react';
 
 const Hero = () => {
-  var settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    pauseOnHover: false,
-  };
-
-  const slideData = [
-    {
-      id: 0,
-      img: "/banner-1.jpg",
-      title: "Trending Item",
-      mainTitle: "WOMEN'S LATEST FASHION SALE",
-      price: "$20",
-    },
-    {
-      id: 1,
-      img: "/banner-2.jpg",
-      title: "Trending Accessories",
-      mainTitle: "MODERN SUNGLASSES",
-      price: "$15",
-    },
-    {
-      id: 2,
-      img: "/banner-3.jpg",
-      title: "Sale Offer",
-      mainTitle: "NEW FASHION SUMMER SALE",
-      price: "$30",
-    },
-  ];
-
   return (
-    <div>
-      <div className="container pt-6 lg:pt-0">
-        <Slider {...settings}>
-          {slideData.map((item) => (
-            <Slide
-              key={item.id}
-              img={item.img}
-              title={item.title}
-              mainTitle={item.mainTitle}
-              price={item.price}
-            />
-          ))}
-        </Slider>
+    <div className="relative w-full h-96">
+      <img src="/banner-2.jpg" alt="The Essential Man" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 p-4 text-white">
+        <h2 className="text-lg md:text-xl font-semibold">STRICTLY LUXURIOUS</h2>
+        <h1 className="text-2xl md:text-4xl font-bold">The Essential Man</h1>
+        <p className="text-base md:text-lg">A Suit of value to your closet</p>
+        <button className="btn btn-primary mt-4">Shop Now</button>
       </div>
     </div>
   );
