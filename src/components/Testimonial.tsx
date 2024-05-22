@@ -1,5 +1,5 @@
-import Image from "next/image";
-import React from "react";
+import Image from 'next/image';
+import React from 'react';
 
 const Testimonial = () => {
   return (
@@ -15,7 +15,7 @@ const Testimonial = () => {
               wearing.
             </p>
             <p className="text-gray-500 italic mt-4">
-              "Made for one Owned by one"
+              &quot;Made for one Owned by one&quot;
             </p>
             <p className="text-gray-600 mt-2">
               Comment below
