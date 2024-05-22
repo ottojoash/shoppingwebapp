@@ -9,8 +9,8 @@ const HeaderMain = () => {
         
         {/* Image replacing text */}
         <div className="pb-4 sm:pb-0">
-        <Image src="./assets/logo.jpg" alt="The Essential Man" width={500} height={300} />
-          {/* <img src="./assets/logo.jpg" alt="The Essential Man" className="h-10" /> Adjust path and height as needed */}
+        {/* <Image src="./assets/logo.jpg" alt="The Essential Man" width={500} height={300} /> */}
+          <img src="./assets/logo.jpg" alt="The Essential Man" className="h-10" /> Adjust path and height as needed
         </div>
 
         <div className="flex justify-center gap-8 text-gray-600 text-lg mb-4 sm:mb-0">
