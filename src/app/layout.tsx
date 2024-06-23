@@ -1,5 +1,5 @@
 import HeaderTop from "@/components/HeaderTop";
-import "./globals.css";
+import "../styles/globals.css"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import HeaderMain from "@/components/HeaderMain";
