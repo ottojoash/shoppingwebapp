@@ -1,50 +1,61 @@
-import React from "react";
-import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+"use client";
+
+import React, { useState } from "react";
+import { FaInstagram, FaFacebookF, FaPhone, FaWhatsapp, FaEnvelope } from "react-icons/fa"; 
 
 const Footer: React.FC = () => {
+  const [clickedIcon, setClickedIcon] = useState<string | null>(null);
+
+  const handleClick = (iconName: string) => {
+    setClickedIcon(iconName);
+    setTimeout(() => setClickedIcon(null), 300); // Reset animation after 300ms
+  };
+
   return (
-    <div className="bg-black text-gray-500 text-center py-4 pb-16 md:pb-4">
+    <div className="bg-white text-black text-center py-4 pb-16 md:pb-4">
       <div className="flex justify-center space-x-4 mb-4">
-        {/* Icon link with round white border and transparent background */}
         <a
           href="https://www.instagram.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-white p-2 rounded-full transition-colors duration-300"
+          className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'instagram' ? 'transform scale-125' : ''}`}
+          onClick={() => handleClick('instagram')}
         >
-          <FaInstagram size={24} className="text-white" />
+          <FaInstagram size={24} className="text-black" />
         </a>
         <a
           href="https://www.facebook.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-white p-2 rounded-full transition-colors duration-300"
+          className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'facebook' ? 'transform scale-125' : ''}`}
+          onClick={() => handleClick('facebook')}
         >
-          <FaFacebookF size={24} className="text-white" />
+          <FaFacebookF size={24} className="text-black" />
         </a>
         <a
-          href="https://www.twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="border border-white p-2 rounded-full transition-colors duration-300"
+          href="tel:+1234567890"
+          className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'phone' ? 'transform scale-125' : ''}`}
+          onClick={() => handleClick('phone')}
         >
-          <FaTwitter size={24} className="text-white" />
+          <FaPhone size={24} className="text-black" />
         </a>
         <a
           href="https://www.whatsapp.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-white p-2 rounded-full transition-colors duration-300"
+          className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'whatsapp' ? 'transform scale-125' : ''}`}
+          onClick={() => handleClick('whatsapp')}
         >
-          <FaWhatsapp size={24} className="text-white" />
+          <FaWhatsapp size={24} className="text-black" />
         </a>
         <a
           href="mailto:info@example.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-white p-2 rounded-full transition-colors duration-300"
+          className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'email' ? 'transform scale-125' : ''}`}
+          onClick={() => handleClick('email')}
         >
-          <FaEnvelope size={24} className="text-white" />
+          <FaEnvelope size={24} className="text-black" />
         </a>
       </div>
       <div>

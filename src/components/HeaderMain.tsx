@@ -8,16 +8,22 @@ const HeaderMain: React.FC = () => {
         <div className="pb-4 sm:pb-0">
           <img src="/assets/logo.jpg" alt="The Essential Man" className="h-10" />
         </div>
-        <div className="flex justify-center gap-8 text-gray-600 text-lg mb-4 sm:mb-0">
-          <Link href="/shop" legacyBehavior>
-            <a className="hover:text-black">Shop</a>
-          </Link>
-          <Link href="/review" legacyBehavior>
-            <a className="hover:text-black">Review</a>
-          </Link>
-          <Link href="/about" legacyBehavior>
-            <a className="hover:text-black">About</a>
-          </Link>
+        <div className="w-full flex justify-between text-gray-600 text-lg">
+          <div className="text-left flex-1">
+            <Link href="/shop" legacyBehavior>
+              <a className="hover:text-black">Shop</a>
+            </Link>
+          </div>
+          <div className="text-center flex-1">
+            <Link href="/review" legacyBehavior>
+              <a className="hover:text-black">Review</a>
+            </Link>
+          </div>
+          <div className="text-right flex-1">
+            <Link href="/about" legacyBehavior>
+              <a className="hover:text-black">About</a>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

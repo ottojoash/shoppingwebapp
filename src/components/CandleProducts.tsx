@@ -1,5 +1,5 @@
 import React from 'react';
-
+import suit from '../../public/suit.jpg'
 // Define the type for a single clothing product
 interface ClothingProduct {
   img: string;
@@ -9,19 +9,19 @@ interface ClothingProduct {
 // Array of clothing products with images and names
 const clothingProducts: ClothingProduct[] = [
   {
-    img: "https://via.placeholder.com/300x300?text=Suit",
+    img: "/suit.jpg", // Path relative to the public directory
     name: "Suit",
   },
   {
-    img: "https://via.placeholder.com/300x300?text=Kaftan",
+    img: "/kaftan.jpg", // Replace with the actual path if you have the image in the public directory
     name: "Kaftan",
   },
   {
-    img: "https://via.placeholder.com/300x300?text=Shirt",
+    img: "/shirt.jpg", // Replace with the actual path if you have the image in the public directory
     name: "Shirt",
   },
   {
-    img: "https://via.placeholder.com/300x300?text=Trouser",
+    img: "/trouser.jpg", // Replace with the actual path if you have the image in the public directory
     name: "Trouser",
   }
 ];
@@ -35,8 +35,8 @@ interface ClothingProductCardProps {
 // Single clothing product card component
 const ClothingProductCard: React.FC<ClothingProductCardProps> = ({ img, name }) => {
   return (
-    <div className="flex-none w-[90px] h-[130px] sm:w-[150px] sm:h-[180px] p-2 bg-white shadow-lg border rounded-lg">
-      <img src={img} alt={name} className="h-3/4 w-full object-cover rounded-t-lg"/>
+    <div className="flex-none w-[90px] h-[130px] sm:w-[150px] sm:h-[180px] p-2">
+      <img src={img} alt={name} className="h-3/4 w-full object-cover"/>
       <div className="text-center mt-1 font-semibold">{name}</div> {/* Name displayed below the image */}
     </div>
   );

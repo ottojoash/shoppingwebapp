@@ -4,8 +4,8 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const Hero: React.FC = () => {
   return (
-    <div className="relative w-full h-96">
-      <img src="/banner-2.jpg" alt="The Essential Man" className="w-full h-full object-cover" />
+    <div className="relative w-full h-[450px]"> {/* Increased height */}
+      <img src="/hero.jpg" alt="The Essential Man" className="w-full h-full object-cover" />
       <div className="absolute inset-0 flex flex-col justify-center items-start bg-black bg-opacity-50 p-4 text-white">
         <h2 className="text-lg md:text-xl font-semibold uppercase tracking-wider ml-8">STRICTLY LUXURIOUS</h2>
         <h1 className="text-2xl md:text-4xl font-bold ml-8 mt-2">The Essential Man</h1>
