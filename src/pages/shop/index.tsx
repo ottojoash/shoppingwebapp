@@ -40,13 +40,16 @@ const Shop: React.FC = () => {
   return (
     <div>
       <HeaderTop />
-      {/* <HeaderMain /> */}
       <ShopHeader />
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 gap-4">
           {products.map((product) => (
             <div key={product.id} className="bg-white p-4 shadow rounded-lg">
-              <img src={product.imageSrc} alt={product.name} className="w-full h-50 object-cover mb-2" />
+              <Link href={`/product/${product.id}`} legacyBehavior>
+                <a>
+                  <img src={product.imageSrc} alt={product.name} className="w-full h-50 object-cover mb-2 cursor-pointer" />
+                </a>
+              </Link>
               <div className="text-center">
                 <h3 className="text-md font-semibold">{product.name}</h3>
                 <div className="text-md font-semibold text-blue-600">{product.price}</div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
+import ShopHeader from '../shop/shopheader';
+import { useCart } from '@/components/CartProvider';
 
 const products = [
   {
@@ -46,6 +47,7 @@ const ProductDetail: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const product = products.find((p) => p.id === parseInt(id as string));
+  const { addToCart } = useCart();
 
   if (!product) {
     return <div>Product not found</div>;
@@ -54,7 +56,7 @@ const ProductDetail: React.FC = () => {
   return (
     <div>
       <HeaderTop />
-      <HeaderMain />
+      <ShopHeader />
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white p-8 shadow rounded-lg">
           <img src={product.imageSrc} alt={product.name} className="w-48 h-48 object-cover mb-4 mx-auto" />
@@ -72,7 +74,10 @@ const ProductDetail: React.FC = () => {
               {product.price}
               <span className="line-through text-gray-500 ml-2">{product.originalPrice}</span>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => addToCart(product)}
+            >
               Add to Cart
             </button>
           </div>
