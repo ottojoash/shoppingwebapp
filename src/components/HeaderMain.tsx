@@ -6,7 +6,7 @@ const HeaderMain: React.FC = () => {
     <div className="border-b border-gray-200 py-6">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
         <div className="pb-4 sm:pb-0">
-          <img src="/assets/logo.jpg" alt="The Essential Man" className="h-10" />
+          <img src="/logo_copy.jpg" alt="The Essential Man" className="h-10" />
         </div>
         <div className="w-full flex justify-between text-gray-600 text-lg">
           <div className="text-left flex-1">
@@ -20,8 +20,8 @@ const HeaderMain: React.FC = () => {
             </Link>
           </div>
           <div className="text-right flex-1">
-            <Link href="/about" legacyBehavior>
-              <a className="hover:text-black">About</a>
+            <Link href="/cart" legacyBehavior>
+              <a className="hover:text-black">Cart</a>
             </Link>
           </div>
         </div>

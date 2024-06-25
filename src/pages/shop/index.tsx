@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
+import ShopHeader from './shopheader';
 
 const products = [
   {
@@ -34,7 +35,8 @@ const Shop: React.FC = () => {
   return (
     <div>
       <HeaderTop />
-      <HeaderMain />
+      {/* <HeaderMain /> */}
+      <ShopHeader/>
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 gap-4">
           {products.map((product) => (
