@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
@@ -13,8 +13,8 @@ interface Product {
   name: string;
   description: string;
   rating: number;
-  price: string;
-  originalPrice: string;
+  priceUSD: number; // Use numeric type for easier conversion
+  originalPriceUSD: number;
   img: string;
 }
 
@@ -24,8 +24,8 @@ const products: Product[] = [
     name: "Jacket",
     description: "MEN Yarn Fleece Full-Zip Jacket",
     rating: 4,
-    price: "45.00",
-    originalPrice: "55.00",
+    priceUSD: 45.00,
+    originalPriceUSD: 55.00,
     img: '/jacket-1.jpg', // Update this path
   },
   {
@@ -33,8 +33,8 @@ const products: Product[] = [
     name: "Skirt",
     description: "Black Floral Wrap Midi Skirt",
     rating: 5,
-    price: "55.00",
-    originalPrice: "65.00",
+    priceUSD: 55.00,
+    originalPriceUSD: 65.00,
     img: '/shirt-1.jpg', // Update this path
   },
   {
@@ -42,8 +42,8 @@ const products: Product[] = [
     name: "Party Wear",
     description: "Women's Party Wear Shoes",
     rating: 3,
-    price: "25.00",
-    originalPrice: "35.00",
+    priceUSD: 25.00,
+    originalPriceUSD: 35.00,
     img: '/suit.jpg', // Update this path
   },
   {
@@ -51,20 +51,42 @@ const products: Product[] = [
     name: "Banana kaftan suit",
     description: "Stylish banana-colored kaftan suit",
     rating: 4,
-    price: "360,000 UGX",
-    originalPrice: "400,000 UGX",
+    priceUSD: 100.00,
+    originalPriceUSD: 120.00,
     img: '/kaftan.jpg', // Update this path
   },
 ];
 
+const currencyRates = {
+  USD: 1,
+  UGX: 3700, // Example exchange rate
+  EUR: 0.85, // Example exchange rate
+};
+
 const Shop: React.FC = () => {
   const { addToCart } = useCart();
+  const [currency, setCurrency] = useState('USD');
+
+  const convertPrice = (priceUSD: number) => {
+    return (priceUSD * currencyRates[currency]).toFixed(2);
+  };
 
   return (
     <div>
       <HeaderTop />
       <ShopHeader />
       <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-end mb-4">
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            className="border border-gray-300 rounded p-2"
+          >
+            <option value="USD">USD</option>
+            <option value="UGX">UGX</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </div>
         <div className="grid grid-cols-2 gap-4">
           {products.map((product: Product) => (
             <div key={product.id} className="bg-white p-2 shadow rounded-lg">
@@ -84,7 +106,7 @@ const Shop: React.FC = () => {
                   ))}
                 </div>
                 <div className="text-md font-semibold text-blue-600 mb-2">
-                  ${product.price} <span className="line-through text-gray-500 ml-2">${product.originalPrice}</span>
+                  {currency} {convertPrice(product.priceUSD)} <span className="line-through text-gray-500 ml-2">{currency} {convertPrice(product.originalPriceUSD)}</span>
                 </div>
                 <button
                   className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
