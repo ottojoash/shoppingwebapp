@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import HeaderTop from '@/components/HeaderTop';
 import ShopHeader from '../shop/shopheader';
@@ -12,7 +12,9 @@ const products = [
     price: "Ush 180,000 UGX",
     imageSrc: "https://via.placeholder.com/150", // Placeholder image
     rating: 4,
-    originalPrice: "Ush 200,000 UGX"
+    originalPrice: "Ush 200,000 UGX",
+    colors: ["Red", "Blue", "Green"],
+    sizes: ["S", "M", "L"]
   },
   {
     id: 2,
@@ -21,7 +23,9 @@ const products = [
     price: "Ush 180,000 UGX",
     imageSrc: "https://via.placeholder.com/150", // Placeholder image
     rating: 4,
-    originalPrice: "Ush 200,000 UGX"
+    originalPrice: "Ush 200,000 UGX",
+    colors: ["Red", "Blue", "Green"],
+    sizes: ["S", "M", "L"]
   },
   {
     id: 3,
@@ -30,7 +34,9 @@ const products = [
     price: "Ush 200,000 UGX",
     imageSrc: "https://via.placeholder.com/150", // Placeholder image
     rating: 5,
-    originalPrice: "Ush 250,000 UGX"
+    originalPrice: "Ush 250,000 UGX",
+    colors: ["Green"],
+    sizes: ["M", "L"]
   },
   {
     id: 4,
@@ -39,7 +45,9 @@ const products = [
     price: "Ush 360,000 UGX",
     imageSrc: "https://via.placeholder.com/150", // Placeholder image
     rating: 4,
-    originalPrice: "Ush 400,000 UGX"
+    originalPrice: "Ush 400,000 UGX",
+    colors: ["Banana"],
+    sizes: ["S", "M", "L"]
   },
 ];
 
@@ -48,6 +56,9 @@ const ProductDetail: React.FC = () => {
   const { id } = router.query;
   const product = products.find((p) => p.id === parseInt(id as string));
   const { addToCart } = useCart();
+
+  const [selectedColor, setSelectedColor] = useState(product?.colors[0] || '');
+  const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || '');
 
   if (!product) {
     return <div>Product not found</div>;
@@ -74,9 +85,41 @@ const ProductDetail: React.FC = () => {
               {product.price}
               <span className="line-through text-gray-500 ml-2">{product.originalPrice}</span>
             </div>
+            <div className="mb-4">
+              <p className="text-md font-semibold mb-2">Select Color:</p>
+              {product.colors.map((color, index) => (
+                <label key={index} className="inline-flex items-center mr-4">
+                  <input
+                    type="radio"
+                    name="color"
+                    value={color}
+                    checked={selectedColor === color}
+                    onChange={() => setSelectedColor(color)}
+                    className="form-radio"
+                  />
+                  <span className="ml-2">{color}</span>
+                </label>
+              ))}
+            </div>
+            <div className="mb-4">
+              <p className="text-md font-semibold mb-2">Select Size:</p>
+              {product.sizes.map((size, index) => (
+                <label key={index} className="inline-flex items-center mr-4">
+                  <input
+                    type="radio"
+                    name="size"
+                    value={size}
+                    checked={selectedSize === size}
+                    onChange={() => setSelectedSize(size)}
+                    className="form-radio"
+                  />
+                  <span className="ml-2">{size}</span>
+                </label>
+              ))}
+            </div>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => addToCart(product)}
+              onClick={() => addToCart({ ...product, selectedColor, selectedSize })}
             >
               Add to Cart
             </button>

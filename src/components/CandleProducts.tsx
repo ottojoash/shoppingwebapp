@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 
-interface ClothingProduct {
+export interface ClothingProduct {
   img: string;
   name: string;
 }
 
-const clothingProducts: ClothingProduct[] = [
+export const clothingProducts: ClothingProduct[] = [
   {
     img: "/suit.jpg",
     name: "Suit",
@@ -32,7 +32,7 @@ interface ClothingProductCardProps {
 
 const ClothingProductCard: React.FC<ClothingProductCardProps> = ({ img, name }) => {
   return (
-    <Link href={`/category/${name.toLowerCase()}`} legacyBehavior>
+    <Link href={`/product/${name.toLowerCase()}`} legacyBehavior>
       <a>
         <div className="flex-none w-[90px] h-[130px] sm:w-[150px] sm:h-[180px] p-2 cursor-pointer">
           <img src={img} alt={name} className="h-3/4 w-full object-cover"/>
