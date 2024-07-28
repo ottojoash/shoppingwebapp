@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
@@ -9,7 +9,7 @@ import { useCart } from '@/components/CartProvider';
 import Image from 'next/image';
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
   description: string;
   rating: number;
@@ -17,45 +17,6 @@ interface Product {
   originalPriceUSD: number;
   img: string;
 }
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Jacket",
-    description: "MEN Yarn Fleece Full-Zip Jacket",
-    rating: 4,
-    priceUSD: 45.00,
-    originalPriceUSD: 55.00,
-    img: '/jacket-1.jpg', // Update this path
-  },
-  {
-    id: 2,
-    name: "Skirt",
-    description: "Black Floral Wrap Midi Skirt",
-    rating: 5,
-    priceUSD: 55.00,
-    originalPriceUSD: 65.00,
-    img: '/shirt-1.jpg', // Update this path
-  },
-  {
-    id: 3,
-    name: "Party Wear",
-    description: "Women's Party Wear Shoes",
-    rating: 3,
-    priceUSD: 25.00,
-    originalPriceUSD: 35.00,
-    img: '/suit.jpg', // Update this path
-  },
-  {
-    id: 4,
-    name: "Banana kaftan suit",
-    description: "Stylish banana-colored kaftan suit",
-    rating: 4,
-    priceUSD: 100.00,
-    originalPriceUSD: 120.00,
-    img: '/kaftan.jpg', // Update this path
-  },
-];
 
 const currencyRates = {
   USD: 1,
@@ -65,11 +26,41 @@ const currencyRates = {
 
 const Shop: React.FC = () => {
   const { addToCart } = useCart();
+  const [products, setProducts] = useState<Product[]>([]);
   const [currency, setCurrency] = useState('USD');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/products');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const convertPrice = (priceUSD: number) => {
     return (priceUSD * currencyRates[currency]).toFixed(2);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -89,8 +80,8 @@ const Shop: React.FC = () => {
         </div>
         <div className="grid grid-cols-2 gap-4">
           {products.map((product: Product) => (
-            <div key={product.id} className="bg-white p-2 shadow rounded-lg">
-              <Link href={`/product/${product.id}`} legacyBehavior>
+            <div key={product._id} className="bg-white p-2 shadow rounded-lg">
+              <Link href={`/product/${product._id}`} legacyBehavior>
                 <a>
                   <Image src={product.img} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
                 </a>
