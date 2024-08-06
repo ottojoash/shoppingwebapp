@@ -6,7 +6,8 @@ import React from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 interface PropsType {
-  img: string;
+  id: string; // Add this line
+  image: string;
   title: string;
   desc: string;
   rating: number;
@@ -15,7 +16,8 @@ interface PropsType {
 }
 
 const ProductCard: React.FC<PropsType> = ({
-  img,
+  id,
+  image,
   title,
   desc,
   rating,
@@ -81,11 +83,11 @@ const ProductCard: React.FC<PropsType> = ({
 
   return (
     <div className="p-1 border border-gray-200 rounded-xl w-[100px] h-[150px] sm:w-[150px] sm:h-[200px]">
-      <Link href={`/products/${title}`}>
+      <Link href={`/products/${id}`} legacyBehavior>
         <div className="relative w-full h-[50px] sm:h-[100px]">
           <Image
             className="object-cover rounded-t-xl"
-            src={img}
+            src={image}
             layout="fill"
             alt={title}
           />
