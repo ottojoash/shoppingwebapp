@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
@@ -13,49 +13,10 @@ interface Product {
   name: string;
   description: string;
   rating: number;
-  priceUSD: number; // Use numeric type for easier conversion
-  originalPriceUSD: number;
-  img: string;
+  price: number; // Use numeric type for easier conversion
+  originalPrice: number;
+  image: string;
 }
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Jacket",
-    description: "MEN Yarn Fleece Full-Zip Jacket",
-    rating: 4,
-    priceUSD: 45.00,
-    originalPriceUSD: 55.00,
-    img: '/jacket-1.jpg', // Update this path
-  },
-  {
-    id: 2,
-    name: "Skirt",
-    description: "Black Floral Wrap Midi Skirt",
-    rating: 5,
-    priceUSD: 55.00,
-    originalPriceUSD: 65.00,
-    img: '/shirt-1.jpg', // Update this path
-  },
-  {
-    id: 3,
-    name: "Party Wear",
-    description: "Women's Party Wear Shoes",
-    rating: 3,
-    priceUSD: 25.00,
-    originalPriceUSD: 35.00,
-    img: '/suit.jpg', // Update this path
-  },
-  {
-    id: 4,
-    name: "Banana kaftan suit",
-    description: "Stylish banana-colored kaftan suit",
-    rating: 4,
-    priceUSD: 100.00,
-    originalPriceUSD: 120.00,
-    img: '/kaftan.jpg', // Update this path
-  },
-];
 
 const currencyRates = {
   USD: 1,
@@ -66,10 +27,35 @@ const currencyRates = {
 const Shop: React.FC = () => {
   const { addToCart } = useCart();
   const [currency, setCurrency] = useState('USD');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://backendshop-9nf6.onrender.com/api/shop/products/'); // Adjust the URL to your API endpoint
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } catch (error) {
+        setError('Error fetching products');
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const convertPrice = (priceUSD: number) => {
     return (priceUSD * currencyRates[currency]).toFixed(2);
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
@@ -92,7 +78,7 @@ const Shop: React.FC = () => {
             <div key={product.id} className="bg-white p-2 shadow rounded-lg">
               <Link href={`/product/${product.id}`} legacyBehavior>
                 <a>
-                  <Image src={product.img} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
+                  <Image src={product.image} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
                 </a>
               </Link>
               <div className="text-center">
@@ -106,7 +92,7 @@ const Shop: React.FC = () => {
                   ))}
                 </div>
                 <div className="text-md font-semibold text-blue-600 mb-2">
-                  {currency} {convertPrice(product.priceUSD)} <span className="line-through text-gray-500 ml-2">{currency} {convertPrice(product.originalPriceUSD)}</span>
+                  {currency} {convertPrice(product.price)} <span className="line-through text-gray-500 ml-2">{currency} {convertPrice(product.originalPrice)}</span>
                 </div>
                 <button
                   className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"

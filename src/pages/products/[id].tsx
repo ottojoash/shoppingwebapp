@@ -5,7 +5,7 @@ import ShopHeader from '../shop/shopheader';
 import { useCart } from '@/components/CartProvider';
 
 interface Product {
-  id: number;
+  _id: number;
   title: string;
   description: string;
   price: string;
@@ -32,7 +32,7 @@ const ProductDetail: React.FC = () => {
       if (!id) return;
       
       try {
-        const response = await fetch(`http://localhost:3000/api/shop/products/${id}`);
+        const response = await fetch(`https://backendshop-9nf6.onrender.com/api/shop/products/${_id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch product');
         }
