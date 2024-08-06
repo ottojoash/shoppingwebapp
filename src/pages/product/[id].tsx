@@ -9,7 +9,7 @@ interface Product {
   name: string;
   description: string;
   price: string;
-  imageSrc: string;
+  image: string;
   rating: number;
   originalPrice: string;
   colors: string[];
@@ -31,7 +31,7 @@ const ProductDetail: React.FC = () => {
     if (id) {
       const fetchProduct = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/products/${id}`);
+          const response = await fetch(`https://backendshop-9nf6.onrender.com/api/products/${id}`);
           if (!response.ok) {
             throw new Error('Failed to fetch product');
           }
@@ -68,7 +68,7 @@ const ProductDetail: React.FC = () => {
       <ShopHeader />
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white p-8 shadow rounded-lg">
-          <img src={product.imageSrc} alt={product.name} className="w-48 h-48 object-cover mb-4 mx-auto" />
+          <img src={product.image} alt={product.name} className="w-48 h-48 object-cover mb-4 mx-auto" />
           <div className="text-center">
             <h1 className="text-2xl font-semibold mb-2">{product.name}</h1>
             <p className="text-md text-gray-500 mb-4">{product.description}</p>

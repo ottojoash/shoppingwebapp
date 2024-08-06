@@ -5,7 +5,7 @@ import ProductCard from './ProductCard';
 
 interface Product {
   _id: string;
-  img: string;
+  image: string;
   title: string;
   desc: string;
   rating: number;
@@ -20,7 +20,7 @@ const NewProducts: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products');
+        const response = await fetch('https://backendshop-9nf6.onrender.com/api/shop/products');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -55,7 +55,7 @@ const NewProducts: React.FC = () => {
         {products.map((item, index) => (
           <div key={index} className="shrink-0">
             <ProductCard
-              img={item.img}
+              img={item.image}
               title={item.title}
               desc={item.desc}
               rating={item.rating}

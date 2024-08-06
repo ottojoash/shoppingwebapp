@@ -34,7 +34,7 @@ const Shop: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products');
+        const response = await fetch('https://backendshop-9nf6.onrender.com/api/shop/products');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
