@@ -1,14 +1,18 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Product {
-  type: ReactNode;
-  selectedColor: ReactNode;
-  selectedSize: ReactNode;
-  image: string | undefined;
   id: number;
-  name: string;
-  price: string;
-  imageSrc: string;
+  name: string; // Ensure name is included
+  description: string;
+  rating: number;
+  price: number; // Numeric type
+  originalPrice: number;
+  image: string;
+  title?: string;
+  type?: string;
+  selectedColor?: string; // Optional property
+  selectedSize?: string;  // Optional property
+  imageSrc?: string;
 }
 
 interface CartContextType {
