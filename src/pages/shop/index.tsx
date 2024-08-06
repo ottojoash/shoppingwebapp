@@ -75,7 +75,7 @@ const Shop: React.FC = () => {
           >
             <option value="USD">USD</option>
             <option value="UGX">UGX</option>
-            <option value="EUR">EUR</option>
+            <option value="EUR">EURs</option>
           </select>
         </div>
         <div className="grid grid-cols-2 gap-4">
