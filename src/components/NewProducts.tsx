@@ -55,13 +55,12 @@ const NewProducts: React.FC = () => {
         {products.map((item, index) => (
           <div key={index} className="shrink-0">
             <ProductCard
-              img={item.image}
+              image={item.image}
               title={item.title}
               desc={item.desc}
               rating={item.rating}
               price={item.price}
-              onAddToCart={() => handleAddToCart(item)}
-            />
+              onAddToCart={() => handleAddToCart(item)} id={''}            />
           </div>
         ))}
       </div>

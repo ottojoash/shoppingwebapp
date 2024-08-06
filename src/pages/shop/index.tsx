@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
-import ShopHeader from './shopheader';
+import dynamic from 'next/dynamic';
 import { useCart } from '@/components/CartProvider';
 import Image from 'next/image';
 
+const ShopHeader = dynamic(() => import('./shopheader'), { ssr: false });
+
 interface Product {
-  _id: string;
+  id: number;
   name: string;
   description: string;
   rating: number;
@@ -28,21 +30,17 @@ const Shop: React.FC = () => {
   const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [currency, setCurrency] = useState('USD');
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://backendshop-9nf6.onrender.com/api/shop/products');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
+        const response = await fetch('https://backendshop-9nf6.onrender.com/api/shop/products/');
         const data = await response.json();
         setProducts(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
         setLoading(false);
       }
     };
@@ -50,16 +48,12 @@ const Shop: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const convertPrice = (priceUSD: number) => {
-    return (priceUSD * currencyRates[currency]).toFixed(2);
+  const convertPrice = (price: number) => {
+    return (price * currencyRates[currency]).toFixed(2);
   };
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
   }
 
   return (
@@ -75,13 +69,13 @@ const Shop: React.FC = () => {
           >
             <option value="USD">USD</option>
             <option value="UGX">UGX</option>
-            <option value="EUR">EURs</option>
+            <option value="EUR">EUR</option>
           </select>
         </div>
         <div className="grid grid-cols-2 gap-4">
           {products.map((product: Product) => (
-            <div key={product._id} className="bg-white p-2 shadow rounded-lg">
-              <Link href={`/product/${product._id}`} legacyBehavior>
+            <div key={product.id} className="bg-white p-2 shadow rounded-lg">
+              <Link href={`/product/${product.id}`} legacyBehavior>
                 <a>
                   <Image src={product.image} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
                 </a>

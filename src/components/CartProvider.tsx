@@ -1,6 +1,10 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Product {
+  type: ReactNode;
+  selectedColor: ReactNode;
+  selectedSize: ReactNode;
+  image: string | undefined;
   id: number;
   name: string;
   price: string;
