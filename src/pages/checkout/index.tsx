@@ -9,11 +9,11 @@ const Checkout: React.FC = () => {
   const [username, setUsername] = useState('');
   const [address, setAddress] = useState('');
   const [telephone, setTelephone] = useState('');
+  const [email, setEmail] = useState(''); // Added email field
   const [status, setStatus] = useState('Pending');
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [orderDetails, setOrderDetails] = useState(cart.map(item => ({
     id: item.id,
-    name:item.name,
     color: '',
     size: '',
     quantity: 1,
@@ -32,10 +32,14 @@ const Checkout: React.FC = () => {
       order: orderDetails.map(detail => ({
         ...cart.find(item => item.id === detail.id),
         ...detail,
+        amount: detail.quantity, // Ensuring 'amount' is included
+        name: cart.find(item => item.id === detail.id).name, // Ensuring 'name' is included
+        item: detail.id, // Ensuring 'item' is included
       })),
       username,
       address,
-      telephone,
+      telephone, // Ensuring 'telephone' is included
+      email, // Ensuring 'email' is included
       status,
       paymentMethod,
     };
@@ -126,6 +130,16 @@ const Checkout: React.FC = () => {
             type="text"
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
+            className="border p-2 w-full mt-1"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="border p-2 w-full mt-1"
             required
           />
