@@ -13,9 +13,9 @@ interface Product {
   name: string;
   description: string;
   rating: number;
-  priceUSD: number; // Use numeric type for easier conversion
-  originalPriceUSD: number;
-  img: string;
+  price: number; // Use numeric type for easier conversion
+  originalPrice: number;
+  image: string;
 }
 
 const currencyRates = {
@@ -83,7 +83,7 @@ const Shop: React.FC = () => {
             <div key={product._id} className="bg-white p-2 shadow rounded-lg">
               <Link href={`/product/${product._id}`} legacyBehavior>
                 <a>
-                  <Image src={product.img} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
+                  <Image src={product.image} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
                 </a>
               </Link>
               <div className="text-center">
@@ -97,7 +97,7 @@ const Shop: React.FC = () => {
                   ))}
                 </div>
                 <div className="text-md font-semibold text-blue-600 mb-2">
-                  {currency} {convertPrice(product.priceUSD)} <span className="line-through text-gray-500 ml-2">{currency} {convertPrice(product.originalPriceUSD)}</span>
+                  {currency} {convertPrice(product.price)} <span className="line-through text-gray-500 ml-2">{currency} {convertPrice(product.originalPrice)}</span>
                 </div>
                 <button
                   className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
