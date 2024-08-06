@@ -28,7 +28,12 @@ const NewProducts: React.FC = () => {
         setProducts(data);
         setLoading(false);
       } catch (err) {
-        setError(err.message);
+        // Narrowing down the type of `err`
+        if (err instanceof Error) {
+          setError(err.message); // Access `message` safely
+        } else {
+          setError('An unknown error occurred');
+        }
         setLoading(false);
       }
     };
@@ -60,7 +65,9 @@ const NewProducts: React.FC = () => {
               desc={item.desc}
               rating={item.rating}
               price={item.price}
-              onAddToCart={() => handleAddToCart(item)} id={''}            />
+              onAddToCart={() => handleAddToCart(item)}
+              id={item._id} // Assuming ProductCard requires `id`
+            />
           </div>
         ))}
       </div>

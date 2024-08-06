@@ -2,11 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import HeaderMain from '@/components/HeaderMain';
 import HeaderTop from '@/components/HeaderTop';
 import dynamic from 'next/dynamic';
 import { useCart } from '@/components/CartProvider';
 import Image from 'next/image';
+
+// Define a type for currency keys
+type Currency = 'USD' | 'UGX' | 'EUR';
 
 const ShopHeader = dynamic(() => import('./shopheader'), { ssr: false });
 
@@ -15,12 +17,17 @@ interface Product {
   name: string;
   description: string;
   rating: number;
-  price: number; // Use numeric type for easier conversion
+  price: number;
   originalPrice: number;
   image: string;
+  title: string; // Add these properties
+  type: string;
+  selectedColor: string;
+  selectedSize: string;
+  imageSrc: string;
 }
 
-const currencyRates = {
+const currencyRates: Record<Currency, number> = {
   USD: 1,
   UGX: 3700, // Example exchange rate
   EUR: 0.85, // Example exchange rate
@@ -29,7 +36,7 @@ const currencyRates = {
 const Shop: React.FC = () => {
   const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState<Currency>('USD');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -64,7 +71,7 @@ const Shop: React.FC = () => {
         <div className="flex justify-end mb-4">
           <select
             value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
+            onChange={(e) => setCurrency(e.target.value as Currency)}
             className="border border-gray-300 rounded p-2"
           >
             <option value="USD">USD</option>
