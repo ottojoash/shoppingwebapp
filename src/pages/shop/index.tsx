@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,ReactNode } from 'react';
 import Link from 'next/link';
 import HeaderTop from '@/components/HeaderTop';
 import dynamic from 'next/dynamic';
@@ -25,6 +25,7 @@ interface Product {
   selectedColor: string;
   selectedSize: string;
   imageSrc: string;
+  category: ReactNode
 }
 
 const currencyRates: Record<Currency, number> = {

@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useCart } from '@/components/CartProvider';
 
+type Item = {
+  item: number;
+  name: string | undefined;
+  category: string; // Ensure this is always a string
+  size: string;
+  color: string;
+  quantity: number;
+  price: number;
+  image: string;
+};
+
 const Checkout: React.FC = () => {
   const { cart, currency, convertPrice } = useCart();
   const router = useRouter();
@@ -9,20 +20,22 @@ const Checkout: React.FC = () => {
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [items, setItems] = useState(cart.map(item => ({
-    item: item.id, // Assuming each item has an `id` property
-    name: item.title,
-    category: item.category, // Ensure category is included
-    size: '',
-    color: '',
-    quantity: 1,
-    price: convertPrice(item.price), // Ensure price is converted
-    image: item.image, // Ensure image URL is included
-  })));
+  const [items, setItems] = useState(
+    cart.map(item => ({
+      item: item.id,
+      name: item.title,
+      category: item.category || '', // Ensure this is always a string
+      size: '',
+      color: '',
+      quantity: 1,
+      price: convertPrice(item.price),
+      image: item.image,
+    }))
+  );
 
-  const handleInputChange = (index: number, field: string, value: any) => {
+  const handleInputChange = (index: number, field: keyof Item, value: any) => {
     const updatedItems = [...items];
-    updatedItems[index][field] = value;
+    updatedItems[index] = { ...updatedItems[index], [field]: value };
     setItems(updatedItems);
   };
 
@@ -30,15 +43,15 @@ const Checkout: React.FC = () => {
     e.preventDefault();
 
     const orderData = {
-      order: items, // Send the array of items
+      order: items,
       username,
-      phoneNumber, // Updated to phoneNumber to match the backend
+      phoneNumber,
       email,
-      currency, // Include currency to the backend
+      currency,
     };
 
     try {
-      const response = await fetch('http://localhost:3000/api/orders/orders/', {
+      const response = await fetch('https://backendshop-9nf6.onrender.com/api/orders/orders/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +84,7 @@ const Checkout: React.FC = () => {
                 <label className="block text-gray-700">Category:</label>
                 <input
                   type="text"
-                  value={item.category}
+                  value={String(item.category)} // Ensure value is always a string
                   disabled
                   className="border p-2 w-full mt-1"
                 />
