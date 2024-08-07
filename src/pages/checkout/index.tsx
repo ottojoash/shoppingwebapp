@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useCart } from '@/components/CartProvider';
 
 const Checkout: React.FC = () => {
-  const { cart } = useCart();
+  const { cart, currency, convertPrice } = useCart();
   const router = useRouter();
 
   const [username, setUsername] = useState('');
@@ -12,12 +12,12 @@ const Checkout: React.FC = () => {
   const [items, setItems] = useState(cart.map(item => ({
     item: item.id, // Assuming each item has an `id` property
     name: item.title,
+    category: item.category, // Ensure category is included
     size: '',
     color: '',
     quantity: 1,
-    price: item.price, // Ensure price is included
+    price: convertPrice(item.price), // Ensure price is converted
     image: item.image, // Ensure image URL is included
-    // amount: 1, // Default amount value
   })));
 
   const handleInputChange = (index: number, field: string, value: any) => {
@@ -34,10 +34,11 @@ const Checkout: React.FC = () => {
       username,
       phoneNumber, // Updated to phoneNumber to match the backend
       email,
+      currency, // Include currency to the backend
     };
 
     try {
-      const response = await fetch('http://localhost:3000/api/orders/orders', {
+      const response = await fetch('http://localhost:3000/api/orders/orders/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,6 +67,15 @@ const Checkout: React.FC = () => {
           items.map((item, index) => (
             <div key={index} className="mb-4">
               <h2 className="text-lg font-bold">Item: {item.name}</h2>
+              <div className="mb-4">
+                <label className="block text-gray-700">Category:</label>
+                <input
+                  type="text"
+                  value={item.category}
+                  disabled
+                  className="border p-2 w-full mt-1"
+                />
+              </div>
               <div className="mb-4">
                 <label className="block text-gray-700">Size:</label>
                 <input
@@ -97,17 +107,15 @@ const Checkout: React.FC = () => {
                   min="1"
                 />
               </div>
-              {/* <div className="mb-4">
-                <label className="block text-gray-700">Amount:</label>
+              <div className="mb-4">
+                <label className="block text-gray-700">Price ({currency}):</label>
                 <input
-                  type="number"
-                  value={item.amount}
-                  onChange={(e) => handleInputChange(index, 'amount', e.target.value)}
+                  type="text"
+                  value={item.price}
+                  disabled
                   className="border p-2 w-full mt-1"
-                  required
-                  min="1"
                 />
-              </div> */}
+              </div>
             </div>
           ))
         )}
