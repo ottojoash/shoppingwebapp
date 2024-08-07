@@ -2,18 +2,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useCart } from '@/components/CartProvider';
 
-// Define the type for cart items
-interface CartItem {
-  item: number;
-  name?: string; // Make name optional
-  size: string;
-  color: string;
-  quantity: number;
-  price: number; // Ensure price is number
-  image?: string; // Make image optional
-  amount: number;
-}
-
 const Checkout: React.FC = () => {
   const { cart } = useCart();
   const router = useRouter();
@@ -21,23 +9,20 @@ const Checkout: React.FC = () => {
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [items, setItems] = useState<CartItem[]>(cart.map(item => ({
-    item: item.id,
-    name: item.name, // Adjusted to match the type
+  const [items, setItems] = useState(cart.map(item => ({
+    item: item.id, // Assuming each item has an `id` property
+    name: item.title,
     size: '',
     color: '',
     quantity: 1,
-    price: item.price, // Ensure price is a number
-    image: item.image,
-    amount: 1,
+    price: item.price, // Ensure price is included
+    image: item.image, // Ensure image URL is included
+    // amount: 1, // Default amount value
   })));
 
-  const handleInputChange = (index: number, field: keyof CartItem, value: any) => {
+  const handleInputChange = (index: number, field: string, value: any) => {
     const updatedItems = [...items];
-    updatedItems[index] = {
-      ...updatedItems[index],
-      [field]: value
-    };
+    updatedItems[index][field] = value;
     setItems(updatedItems);
   };
 
@@ -65,7 +50,7 @@ const Checkout: React.FC = () => {
       }
 
       // Optionally redirect after submission
-      router.push('/confirmation'); // Adjust to the confirmation page route
+      router.push(''); // Adjust to the confirmation page route
     } catch (error) {
       console.error('Error submitting the order:', error);
     }
@@ -80,7 +65,7 @@ const Checkout: React.FC = () => {
         ) : (
           items.map((item, index) => (
             <div key={index} className="mb-4">
-              <h2 className="text-lg font-bold">Item: {item.name || 'Unknown'}</h2>
+              <h2 className="text-lg font-bold">Item: {item.name}</h2>
               <div className="mb-4">
                 <label className="block text-gray-700">Size:</label>
                 <input
@@ -112,7 +97,7 @@ const Checkout: React.FC = () => {
                   min="1"
                 />
               </div>
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <label className="block text-gray-700">Amount:</label>
                 <input
                   type="number"
@@ -122,7 +107,7 @@ const Checkout: React.FC = () => {
                   required
                   min="1"
                 />
-              </div>
+              </div> */}
             </div>
           ))
         )}

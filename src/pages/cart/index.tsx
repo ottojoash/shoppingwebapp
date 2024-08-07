@@ -1,7 +1,6 @@
-import React from 'react';
-import { useCart } from '@/components/CartProvider';
-import CartHeader from './cartHeader';
-import { useRouter } from 'next/router';
+import { useCart } from "@/components/CartProvider";
+import CartHeader from "./cartHeader";
+import { useRouter } from "next/router";
 
 const Cart: React.FC = () => {
   const { cart, removeFromCart } = useCart();
