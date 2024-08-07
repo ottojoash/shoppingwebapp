@@ -64,7 +64,7 @@ const Checkout: React.FC = () => {
       }
 
       // Optionally redirect after submission
-      router.push(''); // Adjust to the confirmation page route
+      router.push('/'); // Adjust to the confirmation page route
     } catch (error) {
       console.error('Error submitting the order:', error);
     }
