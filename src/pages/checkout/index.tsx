@@ -22,7 +22,7 @@ const Checkout: React.FC = () => {
   const [email, setEmail] = useState('');
   const [items, setItems] = useState(
     cart.map(item => ({
-      item: item.id,
+      item: item._id,
       name: item.title,
       category: item.category || '', // Ensure this is always a string
       size: '',

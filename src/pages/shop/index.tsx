@@ -7,13 +7,12 @@ import dynamic from 'next/dynamic';
 import { useCart } from '@/components/CartProvider';
 import Image from 'next/image';
 
-// Define a type for currency keys
 type Currency = 'USD' | 'UGX' | 'EUR';
 
 const ShopHeader = dynamic(() => import('./shopheader'), { ssr: false });
 
 interface Product {
-  id: number;
+  _id: number;
   name: string;
   description: string;
   rating: number;
@@ -82,15 +81,14 @@ const Shop: React.FC = () => {
         </div>
         <div className="grid grid-cols-2 gap-4">
           {products.map((product: Product) => (
-            <div key={product.id} className="bg-white p-2 shadow rounded-lg">
-              <Link href={`/product/${product.id}`} legacyBehavior>
+            <div key={product._id} className="bg-white p-2 shadow rounded-lg">
+              <Link href={`/product/${product._id}`} legacyBehavior>
                 <a>
                   <Image src={product.image} alt={product.name} width={150} height={150} className="w-full h-32 object-cover mb-2" />
                 </a>
               </Link>
               <div className="text-center">
                 <h3 className="text-md font-semibold text-pink-500">{product.name}</h3>
-                <p className="text-sm text-gray-500">{product.description}</p>
                 <div className="rating flex justify-center my-2">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className={`w-4 h-4 ${i < product.rating ? 'text-yellow-500' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">

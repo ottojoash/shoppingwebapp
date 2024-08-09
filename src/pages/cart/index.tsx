@@ -28,7 +28,7 @@ const Cart: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {cart.map((item) => (
-              <div key={item.id} className="bg-white p-4 shadow rounded-lg flex items-center">
+              <div key={item._id} className="bg-white p-4 shadow rounded-lg flex items-center">
                 <img src={item.image} alt={item.name} className="w-24 h-24 object-cover mr-4" />
                 <div className="flex-grow">
                   <h3 className="text-md font-semibold">{item.name}</h3>
@@ -37,7 +37,7 @@ const Cart: React.FC = () => {
                 </div>
                 <button
                   className="text-red-600 hover:underline ml-4"
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => removeFromCart(item._id)}
                 >
                   Remove
                 </button>

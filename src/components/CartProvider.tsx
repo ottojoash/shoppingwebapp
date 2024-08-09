@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface Product {
   category: ReactNode;
-  id: number;
+  _id: number;
   name: string; // Ensure name is included
   description: string;
   rating: number;
@@ -36,7 +36,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const removeFromCart = (id: number) => {
-    setCart((prevCart) => prevCart.filter((product) => product.id !== id));
+    setCart((prevCart) => prevCart.filter((product) => product._id !== id));
   };
 
   const changeCurrency = (newCurrency: string) => {
