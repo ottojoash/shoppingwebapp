@@ -44,7 +44,7 @@ const ProductDetail: React.FC = () => {
         </div>
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-          <p className="text-lg mb-4">{product.desc}</p>
+          <p className="text-lg mb-4">{product.description}</p>
           <div className="text-xl font-semibold mb-4">${product.price}</div>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
