@@ -5,7 +5,7 @@ import { useCart } from '@/components/CartProvider';
 type Item = {
   item: number;
   name: string | undefined;
-  category: string; // Ensure this is always a string
+  category: string;
   size: string;
   color: string;
   quantity: number;
@@ -20,11 +20,12 @@ const Checkout: React.FC = () => {
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
   const [items, setItems] = useState(
     cart.map(item => ({
       item: item._id,
       name: item.title,
-      category: item.category || '', // Ensure this is always a string
+      category: item.category || '',
       size: '',
       color: '',
       quantity: 1,
@@ -48,6 +49,7 @@ const Checkout: React.FC = () => {
       phoneNumber,
       email,
       currency,
+      paymentMethod,
     };
 
     try {
@@ -63,7 +65,6 @@ const Checkout: React.FC = () => {
         throw new Error('Network response was not ok');
       }
 
-      // Optionally redirect after submission
       router.push('/'); // Adjust to the confirmation page route
     } catch (error) {
       console.error('Error submitting the order:', error);
@@ -84,7 +85,7 @@ const Checkout: React.FC = () => {
                 <label className="block text-gray-700">Category:</label>
                 <input
                   type="text"
-                  value={String(item.category)} // Ensure value is always a string
+                  value={String(item.category)}
                   disabled
                   className="border p-2 w-full mt-1"
                 />
@@ -162,12 +163,45 @@ const Checkout: React.FC = () => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Submit Order
-        </button>
+
+        {/* Payment Method Section */}
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Payment Method:</label>
+          <div>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="cash"
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="form-radio"
+              />
+              <span className="ml-2">Cash</span>
+            </label>
+          </div>
+          <div>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="online"
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="form-radio"
+              />
+              <span className="ml-2">Online Pay</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Conditionally render the submit button */}
+        {paymentMethod && (
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded mt-4"
+          >
+            Submit Order
+          </button>
+        )}
       </form>
     </div>
   );
