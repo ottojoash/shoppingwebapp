@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
           <FaPhone size={24} className="text-black" />
         </a>
         <a
-          href="https://www.whatsapp.com"
+          href="https://wa.link/grz1h3"
           target="_blank"
           rel="noopener noreferrer"
           className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'whatsapp' ? 'transform scale-125' : ''}`}
