@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
     <div className="bg-white text-black text-center py-4 pb-16 md:pb-4">
       <div className="flex justify-center space-x-4 mb-4">
         <a
-          href="https://www.instagram.com"
+          href="https://www.instagram.com/theessentialman.co?igsh=M281Mjl4ZzJscTI5&utm_source=qr"
           target="_blank"
           rel="noopener noreferrer"
           className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'instagram' ? 'transform scale-125' : ''}`}
@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
           <FaWhatsapp size={24} className="text-black" />
         </a>
         <a
-          href="mailto:info@example.com"
+          href="afreshmanjonathan@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
           className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'email' ? 'transform scale-125' : ''}`}
