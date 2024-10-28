@@ -1,14 +1,16 @@
-'use client';
-
+// ProductDetail.tsx
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import ShopHeader from '../shop/shopheader';
+import { useCart } from '../../components/CartProvider'; // Adjust path if necessary
 
 const ProductDetail: React.FC = () => {
   const router = useRouter();
-  const { id } = router.query; // Get the product ID from the URL
+  const { id } = router.query;
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart(); // Access addToCart from CartContext
 
   useEffect(() => {
     if (id) {
@@ -38,6 +40,7 @@ const ProductDetail: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <ShopHeader/>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <Image src={product.image} alt={product.title} width={500} height={500} className="object-cover" />
@@ -48,7 +51,7 @@ const ProductDetail: React.FC = () => {
           <div className="text-xl font-semibold mb-4">${product.price}</div>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => console.log('Add to cart functionality here')}
+            onClick={() => addToCart(product)} // Add product to cart
           >
             Add to Cart
           </button>
