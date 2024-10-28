@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
           <FaFacebookF size={24} className="text-black" />
         </a>
         <a
-          href="tel:+25676044211"
+          href="tel:+256760442111"
           className={`border border-black p-2 rounded-full transition-transform duration-300 ${clickedIcon === 'phone' ? 'transform scale-125' : ''}`}
           onClick={() => handleClick('phone')}
         >
